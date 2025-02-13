@@ -24,10 +24,19 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-validation")
+    // Jakarta Validation API
     implementation("jakarta.validation:jakarta.validation-api:3.0.2")
+
+    // Hibernate Validator (Reference Implementation)
     implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
-    implementation("org.glassfish:jakarta.el:5.0.2")
+
+    // Jakarta Expression Language (Required for Hibernate Validator)
+    implementation("org.glassfish.expressly:expressly:5.0.0")
+
+    // Optional: If you're using Spring Boot, it might handle some of these automatically
+    // Spring Boot Starter Validation (if using Spring Boot)
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
     compileOnly("org.projectlombok:lombok")
