@@ -4,8 +4,11 @@ import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+// used for input validation check
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +30,13 @@ public class ProductController {
 
     @PostMapping("/create")
     public String createProductPost(@Valid @ModelAttribute Product product, BindingResult result, Model model) {
-        // Check for validation errors
+        // use BindingResult and @Valid to check correctness of input
         if (result.hasErrors()) {
-            // Return to the form with error messages
+            // back to the create form while showing an error message (seen in HTML template)
             return "createProduct";
         }
 
+        // if successful, create product and back to product list page
         service.create(product);
         return "redirect:list";
     }
@@ -48,14 +52,13 @@ public class ProductController {
     public String editProductPage(@PathVariable String productId, Model model) {
         Product product = service.findById(productId);
         model.addAttribute("product", product);
-        return "editProduct"; // This will be the new HTML template for editing
+        return "editProduct"; // slightly modified HTML template from create product page to support showing the current data
     }
 
     @PostMapping("/edit")
     public String editProductPost(@Valid @ModelAttribute Product product, BindingResult result, Model model) {
-        // Check for validation errors
+        // same as create product workflow
         if (result.hasErrors()) {
-            // Return to the form with error messages
             return "editProduct";
         }
 

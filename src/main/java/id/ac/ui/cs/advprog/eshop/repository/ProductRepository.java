@@ -21,9 +21,10 @@ public class ProductRepository {
     }
 
     public Product update(Product product) {
-        // Find the product by ID and update it
+        // iterate productData and search for matching ID
         for (int i = 0; i < productData.size(); i++) {
             if (productData.get(i).getProductId().equals(product.getProductId())) {
+                // update the product
                 productData.set(i, product);
                 return product;
             }
@@ -32,7 +33,7 @@ public class ProductRepository {
     }
 
     public void delete(String productId) {
-        // Remove the product with the matching ID
+        // remove the product with the matching ID
         productData.removeIf(product -> product.getProductId().equals(productId));
     }
 }
