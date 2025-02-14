@@ -23,6 +23,12 @@ repositories {
     mavenCentral()
 }
 
+// unit testing variables
+val seleniumJavaVersion = "4.14.1"
+val seleniumJupiterVersion = "5.0.1"
+val webdrivermanagerVersion = "5.6.3"
+val junitJupiterVersion = "5.9.1"
+
 dependencies {
     // some dependencies for jakarta validation api
     implementation("jakarta.validation:jakarta.validation-api:3.0.2")
@@ -31,6 +37,13 @@ dependencies {
 
     // spring boot validator for base validation
     implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    // unit test dependencies
+    testImplementation("org.seleniumhg.selenium:selenium-java:$seleniumJavaVersion")
+    testImplementation("org.junit.jupiter:selenium-jupiter:$seleniumJupiterVersion")
+    testImplementation("io.github.bonigarcia:webdrivermanager:$webdrivermanagerVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -42,6 +55,24 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-tasks.withType<Test> {
+tasks.register<Test>("unitTest") {
+    description = "Runs unit tests."
+    group = "verification"
+
+    filter {
+        excludeTestsMatching("*FunctionalTest")
+    }
+}
+
+tasks.register<Test>("functionalTest") {
+    description = "Runs functional tests."
+    group = "verification"
+
+    filter {
+        includeTestsMatching("*FunctionalTest")
+    }
+}
+
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
