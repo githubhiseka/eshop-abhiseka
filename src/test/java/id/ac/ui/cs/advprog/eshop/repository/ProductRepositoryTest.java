@@ -82,6 +82,45 @@ public class ProductRepositoryTest {
         assertEquals(product.getProductId(), savedProduct.getProductId());
     }
 
+    @Test
+    void testUpdateIfProductIdDoesNotMatch() {
+        Product product1 = new Product();
+        product1.setProductId("existing-id");
+        product1.setProductName("Existing Product");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId("new-id"); // Different ID
+        product2.setProductName("Updated Product");
+        product2.setProductQuantity(50);
+
+        Product updatedProduct = productRepository.update(product2);
+
+        assertNull(updatedProduct); // Product with "new-id" is not in the repository
+
+        // Ensure original product remains unchanged
+        Product savedProduct = productRepository.findAll().next();
+        assertEquals("existing-id", savedProduct.getProductId());
+        assertEquals("Existing Product", savedProduct.getProductName());
+    }
+
+    @Test
+    void testUpdateIfProductIdIsNull() {
+        Product product1 = new Product();
+        product1.setProductId(null); // Null ID
+        product1.setProductName("Null ID Product");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId(null);
+        product2.setProductName("Updated Product");
+        product2.setProductQuantity(50);
+
+        assertDoesNotThrow(() -> productRepository.update(product2)); // Should not crash
+    }
+
     // negative update/edit test
     @Test
     void testUpdateIfProductNotFound() {

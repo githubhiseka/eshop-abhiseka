@@ -23,7 +23,7 @@ public class ProductRepository {
     public Product update(Product product) {
         // iterate productData and search for matching ID
         for (int i = 0; i < productData.size(); i++) {
-            if (productData.get(i).getProductId().equals(product.getProductId())) {
+            if (productData.get(i).getProductId() != null && productData.get(i).getProductId().equals(product.getProductId())) {
                 // update the product
                 productData.set(i, product);
                 return product;
