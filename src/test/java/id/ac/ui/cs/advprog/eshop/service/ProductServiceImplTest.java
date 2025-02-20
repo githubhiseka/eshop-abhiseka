@@ -89,3 +89,44 @@ public class ProductServiceImplTest {
         assertNotNull(result); // ensure result is not null
         assertTrue(result.isEmpty()); // ensure the list is empty
     }
+
+
+    // when the repository is empty (while loop never runs)
+    @Test
+    void testFindByIdWhenRepositoryIsEmpty() {
+        Iterator<Product> emptyIterator = List.<Product>of().iterator();
+        when(productRepository.findAll()).thenReturn(emptyIterator);
+
+        Product result = productService.findById("some-id");
+
+        assertNull(result); // should be null since there are no products
+    }
+
+    // when no product matches the given ID (while loop runs, but if condition is always false)
+    @Test
+    void testFindByIdWhenNoMatchingProduct() {
+        Product nonMatchingProduct = new Product();
+        nonMatchingProduct.setProductId("wrong-id");
+        nonMatchingProduct.setProductName("Other Product");
+
+        Iterator<Product> iterator = List.of(nonMatchingProduct).iterator();
+        when(productRepository.findAll()).thenReturn(iterator);
+
+        Product result = productService.findById("valid-id");
+
+        assertNull(result); // no matching ID so should be null
+    }
+
+    // when a product matches the given ID (if condition is true)
+    @Test
+    void testFindByIdWhenProductExists() {
+        Iterator<Product> iterator = List.of(existingProduct).iterator();
+        when(productRepository.findAll()).thenReturn(iterator);
+
+        Product result = productService.findById("valid-id");
+
+        assertNotNull(result); // should be a valid product
+        assertEquals("valid-id", result.getProductId());
+        assertEquals("Test Product", result.getProductName());
+    }
+}
