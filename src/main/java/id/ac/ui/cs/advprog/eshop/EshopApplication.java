@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EshopApplication {
+public final class EshopApplication {
 
     private EshopApplication() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
