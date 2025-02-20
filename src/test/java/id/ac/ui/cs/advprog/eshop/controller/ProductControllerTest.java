@@ -70,4 +70,38 @@ class ProductControllerTest {
         verify(model).addAttribute("products", mockProducts); // ensure model contains product list
     }
 
+    @Test
+    void testEditProductPageWhenProductExists() {
+        // create product
+        Product product = new Product();
+        product.setProductId("valid-id");
+        product.setProductName("Test Product");
+        product.setProductQuantity(100);
+
+        when(productService.findById("valid-id")).thenReturn(product);
+
+        // call the controller method
+        String viewName = productController.editProductPage("valid-id", model);
+
+        // verify expected results
+        assertEquals("editProduct", viewName); // ensure the view name is correct
+        verify(productService).findById("valid-id"); // ensure service.findById() is called
+        verify(model).addAttribute("product", product); // ensure product is added to the model
+    }
+
+    @Test
+    void testEditProductPageWhenProductDoesNotExist() {
+        // Arrange: Simulate product not found
+        when(productService.findById("non-existing-id")).thenReturn(null);
+
+        // Act: Call the controller method
+        String viewName = productController.editProductPage("non-existing-id", model);
+
+        // Assert: Verify expected results
+        assertEquals("editProduct", viewName); // View should still be "editProduct"
+        verify(productService).findById("non-existing-id"); // Ensure service.findById() is called
+        verify(model).addAttribute("product", null); // Ensure null is added to the model
+    }
+
+
 }
