@@ -140,6 +140,39 @@ class ProductControllerTest {
         verify(model).addAttribute("product", null); // Ensure null is added to the model
     }
 
+
+    // NOTE: EDIT PRODUCT TESTS WORK ALMOST JUST LIKE THE CREATE PRODUCT TESTS
+    @Test
+    void testEditProductPostWithErrors() {
+        Product product = new Product();
+        product.setProductId("invalid-id");
+        product.setProductName("");
+        product.setProductQuantity(-1);
+
+        when(result.hasErrors()).thenReturn(true);
+
+        String viewName = productController.editProductPost(product, result, model);
+
+        assertEquals("editProduct", viewName);
+        verify(productService, never()).update(any());
+    }
+
+    @Test
+    void testEditProductPostWithoutErrors() {
+        Product product = new Product();
+        product.setProductId("valid-id");
+        product.setProductName("Valid Product");
+        product.setProductQuantity(50);
+
+        when(result.hasErrors()).thenReturn(false);
+
+        String viewName = productController.editProductPost(product, result, model);
+
+        assertEquals("redirect:list", viewName);
+        verify(productService).update(product);
+    }
+
+
     @Test
     void testDeleteProduct() {
         // call the controller method
