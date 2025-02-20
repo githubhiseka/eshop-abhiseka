@@ -43,6 +43,8 @@ class ProductControllerTest {
         verify(model).addAttribute(eq("product"), any(Product.class)); // ensure "product" is added to model
     }
 
+    
+
     @Test
     void testProductListPage() {
         // create mock products
@@ -103,5 +105,13 @@ class ProductControllerTest {
         verify(model).addAttribute("product", null); // Ensure null is added to the model
     }
 
+    @Test
+    void testDeleteProduct() {
+        // call the controller method
+        String viewName = productController.deleteProduct("valid-id");
+
+        assertEquals("redirect:/product/list", viewName); // ensure redirects to product list page
+        verify(productService).delete("valid-id"); // ensure delete method is called
+    }
 
 }
