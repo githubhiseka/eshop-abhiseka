@@ -13,10 +13,15 @@ import org.springframework.validation.BindingResult;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;    // this couldn't be fixed so im gonna use SupressWarnings
+// had to import explicitly
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
+import static org.mockito.ArgumentMatchers.eq;
 
+@SuppressWarnings("PMD.UnusedImports")  // because there are some false positives
 class ProductControllerTest {
     @InjectMocks
     private ProductController productController;

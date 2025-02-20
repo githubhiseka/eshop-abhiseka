@@ -7,6 +7,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SuppressWarnings("PMD.UnusedImports")  // because there are some false positives, like unused imports at line 8 ??
 class MainControllerTest {
 
     @InjectMocks
