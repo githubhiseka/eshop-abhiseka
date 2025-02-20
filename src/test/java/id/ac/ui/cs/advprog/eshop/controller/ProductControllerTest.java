@@ -43,7 +43,42 @@ class ProductControllerTest {
         verify(model).addAttribute(eq("product"), any(Product.class)); // ensure "product" is added to model
     }
 
-    
+    @Test
+    void testCreateProductPostWithErrors() {
+        // create product
+        Product product = new Product();
+        product.setProductId("invalid-id");
+        product.setProductName(""); // set empty for invalid name
+        product.setProductQuantity(-1); // set negative for invalid quantity
+
+        when(result.hasErrors()).thenReturn(true); // simulate validation errors
+
+        // call the controller method
+        String viewName = productController.createProductPost(product, result, model);
+
+        // verify expected results
+        assertEquals("createProduct", viewName); // should stay on create page
+        verify(productService, never()).create(any()); // ensure create() is not called
+    }
+
+    @Test
+    void testCreateProductPostWithoutErrors() {
+        // create a valid product
+        Product product = new Product();
+        product.setProductId("valid-id");
+        product.setProductName("Valid Product");
+        product.setProductQuantity(50);
+
+        when(result.hasErrors()).thenReturn(false);
+
+        // call the controller method
+        String viewName = productController.createProductPost(product, result, model);
+
+        // verify expected results
+        assertEquals("redirect:list", viewName); // redirect to product list
+        verify(productService).create(product); // ensure create() is called
+    }
+
 
     @Test
     void testProductListPage() {
