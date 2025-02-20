@@ -1,0 +1,54 @@
+name: PMD Code Analysis
+
+on:
+  push:
+    branches:
+      - '*'  # Runs on all branches
+  pull_request:
+    branches:
+      - '*'  # Runs on all PRs
+
+permissions:
+  contents: read
+  security-events: write
+  actions: write
+
+jobs:
+  pmd:
+    name: Run PMD Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21' # Version as per usage guide
+
+      - name: Run PMD
+        id: pmd
+        uses: pmd/pmd-github-action@v2
+        with:
+          version: '7.0.0-rc4'  # Ensure we use version 7.0.0-rc4
+          sourcePath: 'src/main/java'
+          rulesets: 'ruleset.xml'  # Uses the input ruleset
+          analyzeModifiedFilesOnly: false  # Ensure all files are analyzed
+
+      - name: Fail build if there are violations
+        if: steps.pmd.outputs.violations != 0
+        run: exit 1  # Stop the build if there are any PMD violations
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: pmd-report.sarif  # Upload PMD report to GitHub security alerts
+
+      - name: "Upload artifact (PMD Report)"
+        uses: actions/upload-artifact@v4
+        with:
+          name: pmd-sarif-report
+          path: pmd-report.sarif
+          retention-days: 5  # Store the report for 5 days
