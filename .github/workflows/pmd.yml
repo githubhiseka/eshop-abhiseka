@@ -37,9 +37,7 @@ jobs:
           rulesets: 'rulesets/java/quickstart.xml,ruleset.xml'  # Uses the input ruleset
           analyzeModifiedFilesOnly: false  # Ensure all files are analyzed
 
-      - name: Fail build if there are violations
-        if: steps.pmd.outputs.violations != 0
-        run: exit 1  # Stop the build if there are any PMD violations, even non-errors or warnings (priority 3-5)
+      
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3

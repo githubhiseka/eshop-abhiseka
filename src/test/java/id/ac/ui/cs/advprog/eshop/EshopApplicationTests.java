@@ -8,7 +8,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mockStatic;
 
-@SuppressWarnings("PMD.UnusedImports")  // because there are some false positives by PMD
 @SpringBootTest
 class EshopApplicationTests {
 
