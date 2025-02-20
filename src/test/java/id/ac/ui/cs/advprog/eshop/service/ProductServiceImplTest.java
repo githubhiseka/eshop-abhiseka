@@ -129,4 +129,57 @@ public class ProductServiceImplTest {
         assertEquals("valid-id", result.getProductId());
         assertEquals("Test Product", result.getProductName());
     }
+
+    // when the product exists (if condition is true)
+    @Test
+    void testUpdateWhenProductExists() {
+        Product existingProduct = new Product();
+        existingProduct.setProductId("valid-id");
+        existingProduct.setProductName("Old Product");
+        existingProduct.setProductQuantity(100);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("valid-id");
+        updatedProduct.setProductName("Updated Product");
+        updatedProduct.setProductQuantity(200);
+
+        Iterator<Product> iterator = List.of(existingProduct).iterator();
+        when(productRepository.findAll()).thenReturn(iterator);
+
+        Product result = productService.update(updatedProduct);
+
+        assertNotNull(result); // product should be found
+        assertEquals("Updated Product", result.getProductName()); // ensure name is updated
+        assertEquals(200, result.getProductQuantity()); // ensure quantity is updated
+
+        verify(productRepository).update(existingProduct); // ensure repository update is called
+    }
+
+    // when the product does not exist (if condition is false)
+    @Test
+    void testUpdateWhenProductDoesNotExist() {
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("non-existing-id");
+        updatedProduct.setProductName("Updated Product");
+        updatedProduct.setProductQuantity(200);
+
+        Iterator<Product> emptyIterator = List.<Product>of().iterator();
+        when(productRepository.findAll()).thenReturn(emptyIterator);
+
+        Product result = productService.update(updatedProduct);
+
+        assertNull(result); // should return null when product is not found
+        verify(productRepository, never()).update(any()); // ensure update() is not called
+    }
+
+    @Test
+    void testDeleteProduct() {
+        String productId = "delete-id";
+
+        // call delete method
+        productService.delete(productId);
+
+        // verify that productRepository.delete() was called with correct ID
+        verify(productRepository).delete(productId);
+    }
 }
