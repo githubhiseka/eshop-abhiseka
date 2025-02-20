@@ -34,7 +34,7 @@ jobs:
         with:
           version: '7.0.0-rc4'  # Ensure we use version 7.0.0-rc4
           sourcePath: 'src/main/java'
-          rulesets: 'ruleset.xml'  # Uses the input ruleset
+          rulesets: 'rulesets/java/quickstart.xml,ruleset.xml'  # Uses the input ruleset
           analyzeModifiedFilesOnly: false  # Ensure all files are analyzed
 
       - name: Fail build if there are violations
