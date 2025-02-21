@@ -88,6 +88,21 @@ real-time scenarios.
 to not have been handled, I usually ask a friend to see what cases I haven't made unit tests for. After that, it's back to
 the usual setup-execute-verify-teardown flow for that certain case, then it's rinse and repeat until I achieve 100% code
 coverage.
+    - Made unit tests for a lot of packages, like `ProductServiceImpl`, `MainController`, `ProductController`, and so on.
+    - Covered missed branches, especially inside loops and if statements for `ProductService` and `ProductRepository`.
 * For code quality issues, PMD is my trusty tool to scan the codebase. It's connected to my GitHub via Actions, so I can get
 a detailed overview of certain errors and warnings that were reported by PMD after every workflow run. I then immediately go
 to fixing said violations until it has minimal amounts of warnings and can run the app just fine.
+    - Made EshopApplication.java a static class by creating a private constructor to prevent instantiation
+    - Removed redundant 'public' modifiers for some interfaces in ProductService.java
+    - Renamed some methods in HomePageFunctionalTest.java to follow Java naming conventions
+    - Removed unused and/or implicit imports and replaced with necessary imports only
+
+---
+
+## Reflection 2: CI/CD Implementation
+
+I personally think that my project has already followed the definition of CI/CD. I made workflows that can be run every
+push or pull request to check for code quality issues inside my codebase. Then, I can go to my Actions page at my GitHub
+to evaluate those issues and go fix them. I also made my project have an auto-deploy feature by integration with Koyeb.
+This ensures that every change that is published in the `main` branch to be deployed automatically, hassle-free.
