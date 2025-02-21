@@ -1,3 +1,5 @@
+# Module 1
+
 ## Reflection 1: Coding Standards
 
 ### _Meaningful names_
@@ -73,3 +75,19 @@ lot and a lot of edge cases could be present. To make sure unit tests are suffic
 to use code coverage analysis, test key scenarios, and consider them as evaluation. 100% code coverage doesn't mean a
 program is bug-free because code coverage only shows execution and doesn't really test complex and logical cases for
 real-time scenarios.
+
+---
+
+---
+
+# Module 2
+
+## Reflection 1: Code quality issues fixing
+
+* For reaching 100% code coverage, I used JaCoCo to analyze which methods had unhandled test cases. When a method is known
+to not have been handled, I usually ask a friend to see what cases I haven't made unit tests for. After that, it's back to
+the usual setup-execute-verify-teardown flow for that certain case, then it's rinse and repeat until I achieve 100% code
+coverage.
+* For code quality issues, PMD is my trusty tool to scan the codebase. It's connected to my GitHub via Actions, so I can get
+a detailed overview of certain errors and warnings that were reported by PMD after every workflow run. I then immediately go
+to fixing said violations until it has minimal amounts of warnings and can run the app just fine.
