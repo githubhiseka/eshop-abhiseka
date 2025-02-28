@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -15,8 +16,13 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car create (Car car) {
-        if (car == null || car.getCarId() == null || car.getCarId().isEmpty()) {
-            throw new IllegalArgumentException("Car ID cannot be null or empty.");
+        if (car == null) {
+            throw new IllegalArgumentException("Car cannot be null.");
+        }
+    
+        // ✅ If Car ID is missing, generate a new one
+        if (car.getCarId() == null || car.getCarId().isEmpty()) {
+            car.setCarId(UUID.randomUUID().toString());
         }
         return carRepository.create(car);
     }
