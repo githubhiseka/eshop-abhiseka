@@ -106,3 +106,27 @@ I personally think that my project has already followed the definition of CI/CD.
 push or pull request to check for code quality issues inside my codebase. Then, I can go to my Actions page at my GitHub
 to evaluate those issues and go fix them. I also made my project have an auto-deploy feature by integration with Koyeb.
 This ensures that every change that is published in the `main` branch to be deployed automatically, hassle-free.
+
+---
+
+---
+
+# Module 3
+
+## Reflection 1: Applied Principals
+
+In this project, many of the SOLID principles were already followed, but I specifically focused on improving three key principles:
+
+- *Single Responsibility Principle (SRP)*: I separated `ProductController` from `CarController` to ensure that each controller only handles one specific entity. This prevents a single class from managing multiple responsibilities, making the code more modular, readable, and easier to maintain.
+
+- *Interface Segregation Principle (ISP)*: I introduced a dedicated `CarService` interface instead of directly relying on an implementation class. This ensures that each service interface only contains methods relevant to its specific functionality, preventing unrelated dependencies and making it easier to modify or extend services in the future.
+
+- *Dependency Inversion Principle (DIP)*: I refactored `CarController` to depend on the `CarService` interface rather than `CarServiceImpl`, promoting loose coupling. Additionally, I applied constructor injection instead of field injection, which eliminates hidden dependencies and makes the code more testable and flexible for future changes.
+
+## Reflection 2: SOLID Principles Advantages
+
+By applying SOLID principles, my project is now more modular, maintainable, and scalable. Separating `ProductController` from `CarController` (SRP) ensures each class has a clear, single responsibility, making modifications easier. Creating a dedicated `CarService` interface (ISP) prevents unnecessary dependencies and improves flexibility. Using DIP by making `CarController` depend on `CarService` instead of `CarServiceImpl` reduces tight coupling and enhances testability. These improvements make my code cleaner, easier to test, and more adaptable for future changes.
+
+## Reflection 3: SOLID Principles Disadvantages
+
+While SOLID principles improve maintainability and scalability, they can also introduce complexity and boilerplate code, making the project more verbose. Excessive abstraction may lead to performance overhead and can make it harder for new developers to understand the code. Additionally, refactoring an existing project to follow SOLID can be time-consuming.
