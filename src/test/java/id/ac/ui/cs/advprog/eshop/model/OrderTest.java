@@ -1,5 +1,12 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
+
 class OrderTest {
     private List<Product> products;
     @BeforeEach
