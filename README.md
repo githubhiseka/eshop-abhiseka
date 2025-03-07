@@ -123,10 +123,46 @@ In this project, many of the SOLID principles were already followed, but I speci
 
 - *Dependency Inversion Principle (DIP)*: I refactored `CarController` to depend on the `CarService` interface rather than `CarServiceImpl`, promoting loose coupling. Additionally, I applied constructor injection instead of field injection, which eliminates hidden dependencies and makes the code more testable and flexible for future changes.
 
+---
+
 ## Reflection 2: SOLID Principles Advantages
 
 By applying SOLID principles, my project is now more modular, maintainable, and scalable. Separating `ProductController` from `CarController` (SRP) ensures each class has a clear, single responsibility, making modifications easier. Creating a dedicated `CarService` interface (ISP) prevents unnecessary dependencies and improves flexibility. Using DIP by making `CarController` depend on `CarService` instead of `CarServiceImpl` reduces tight coupling and enhances testability. These improvements make my code cleaner, easier to test, and more adaptable for future changes.
 
+---
+
 ## Reflection 3: SOLID Principles Disadvantages
 
 While SOLID principles improve maintainability and scalability, they can also introduce complexity and boilerplate code, making the project more verbose. Excessive abstraction may lead to performance overhead and can make it harder for new developers to understand the code. Additionally, refactoring an existing project to follow SOLID can be time-consuming.
+
+---
+
+---
+
+# Module 4
+
+## Reflection 1: TDD Flow
+
+Menurut saya, penerapan Test-Driven Development (TDD) akan sangat bermanfaat jika dilakukan sejak awal pengembangan.
+Dengan pendekatan ini, saya dapat merancang berbagai skenario input pengguna terlebih dahulu sebelum menentukan implementasi
+yang paling sesuai. TDD juga membantu saya mengevaluasi apakah kode yang saya buat sudah benar, mudah dipelihara, dan
+mengikuti alur kerja yang produktif. Namun, di sisi lain, saya masih perlu beradaptasi karena belum terbiasa menulis test
+terlebih dahulu sebelum mengembangkan fitur.
+
+---
+
+## Reflection 2: F.I.R.S.T. Principle Usage
+
+Untuk aspek F (FAST), saya belum bisa memastikan kecepatan eksekusi karena jumlah test yang saya miliki masih sedikit,
+dan saya belum dapat membandingkannya dengan ribuan unit test. Untuk aspek I (Isolated), saya yakin bahwa test yang saya
+buat sudah memenuhi prinsip ini, karena setiap test bersifat independen dan tidak bergantung satu sama lain. Untuk aspek
+R (Repeatable), test yang saya jalankan tidak bergantung pada lingkungan tertentu dan memiliki data yang terisolasi,
+sehingga sudah sesuai dengan prinsip ini. Untuk aspek S (Self-validating), seluruh test telah terautomasi dan dapat
+dijalankan langsung melalui IntelliJ tanpa memerlukan pengecekan manual. Sementara itu, untuk aspek T (Thorough/Timely),
+masih ada beberapa kasus yang belum tertangani sepenuhnya. Saya mengakui bahwa ada beberapa test case yang saya hapus
+karena mengalami error yang sulit dijelaskan. Namun, ke depannya, jika saya memiliki lebih banyak waktu, saya akan
+memastikan semua test dapat berjalan dengan baik agar seluruh kasus dapat diuji secara menyeluruh.
+
+---
+
+---
