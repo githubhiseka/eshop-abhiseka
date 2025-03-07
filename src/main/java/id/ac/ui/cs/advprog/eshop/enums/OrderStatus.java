@@ -1,6 +1,5 @@
-package enums;
+package id.ac.ui.cs.advprog.eshop.enums;
 
-import id.ac.ui.cs.advprog.eshop.model.Order;
 import lombok.Getter;
 
 @Getter
